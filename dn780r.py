@@ -15,6 +15,14 @@ class Deck:
         self.s.write(b'\x02\x30\x00\x00\x00\x00\x03\x33\x33')
         self.ret = list(str(self.s.read(20), 'UTF-8'))
         self.sys_status = int(self.ret[3])
+        if self.ret[5] == 'A':
+            self.a_loaded = False
+        elif self.ret[5] == 'B':
+            self.a_loaded = True
+        if self.ret[5] == 'A':
+            self.b_loaded = False
+        elif self.ret[11] == 'B':
+            self.b_loaded = True
         if self.ret[4] == '0':
             self.highspeed = False
         elif self.ret[4] == '1':
