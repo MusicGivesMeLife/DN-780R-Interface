@@ -5,9 +5,8 @@ class Deck:
     def __init__(self, port):
         self.port = port
         self.s = serial.Serial(str(self.port), 9600, parity=serial.PARITY_EVEN, timeout=5)
-        all_stat()
-        return 0
-    def all_stat():
+        self.all_stat()
+    def all_stat(self):
         self.status()
         self.tape_stat()
         self.established()
@@ -47,36 +46,36 @@ class Deck:
         self.ret = list(str(self.s.read(8), 'UTF-8'))
         if self.ret[4] == '0':
             self.a_stat = 'A'
-            self.recb_a == False
-            self.recb_b == False
+            self.recb_a = False
+            self.recb_b = False
         elif self.ret[4] == '1':
-            self.reca_a == True
-            self.reca_b == True
+            self.reca_a = True
+            self.reca_b = True
         elif self.ret[4] == '2':
-            self.reca_a == False
-            self.reca_b == True
+            self.reca_a = False
+            self.reca_b = True
         elif self.ret[4] == '3':
-            self.reca_a == True
-            self.reca_b == False
+            self.reca_a = True
+            self.reca_b = False
         elif self.ret[4] == '4':
-            self.recb_a == False
-            self.recb_b == False
+            self.recb_a = False
+            self.recb_b = False
         if self.ret[5] == '0':
             self.b_stat = 'A'
-            self.recb_a == False
-            self.recb_b == False
+            self.recb_a = False
+            self.recb_b = False
         elif self.ret[5] == '1':
-            self.recb_a == True
-            self.recb_b == True
+            self.recb_a = True
+            self.recb_b = True
         elif self.ret[5] == '2':
-            self.recb_a == False
-            self.recb_b == True
+            self.recb_a = False
+            self.recb_b = True
         elif self.ret[5] == '3':
-            self.recb_a == True
-            self.recb_b == False
+            self.recb_a = True
+            self.recb_b = False
         elif self.ret[5] == '4':
-            self.recb_a == False
-            self.recb_b == False
+            self.recb_a = False
+            self.recb_b = False
         return 0
     def established(self):
         self.s.flushInput()
