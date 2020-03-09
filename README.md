@@ -83,5 +83,26 @@ Accepts a string indicating which mecha, 'A' or 'B', and a boolean indicating if
 ### `direction`
 Accepts a string indicating which mecha, 'A' or 'B', and toggles the direction of that mecha.
 
+### `memory`
+Accepts a string indicating which mecha, 'A' or 'B', and toggles the counter memory of that mecha.
+
+### `c_reset`
+Accepts a string indicating which mecha, 'A' or 'B', and resets the counter of that mecha.
+
+### `dolby`
+Accepts a string indicating which mecha, 'A' or 'B', and an integer for Dolby Noise Reduction type (0 for off, 1 for B, 2 for C), and sets it for that desired mecha.
+
+### `twinrec`
+Starts twin recording.
+
+### `dubbing`
+Starts dubbing.
+
+### `speed`
+Accepts a boolean and sets speed for twin recording.  True for high speed, False for normal.
+
+### `revmode`
+Accepts an integer for reversing mode.  0 for single, 1 for loop, 2 for relay, and 3 for cascade.
+
 ### `close`
 Ends serial connection to recorder.

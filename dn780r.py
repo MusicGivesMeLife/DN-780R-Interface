@@ -140,12 +140,12 @@ class Deck:
         self.s.flushInput()
         if mecha == 'A':
             if msearch == True:
-                self.s.write(b'\x02\x45\x30\x31\x00\x00\x03\x41\x39') #TODO
+                self.s.write(b'\x02\x45\x30\x31\x00\x00\x03\x41\x39')
             else:
                 self.s.write(b'\x02\x45\x30\x30\x00\x00\x03\x41\x38')
         elif mecha == 'B':
             if msearch == True:
-                self.s.write(b'\x02\x45\x31\x31\x00\x00\x03\x41\x40') #TODO
+                self.s.write(b'\x02\x45\x31\x31\x00\x00\x03\x41\x41') #TODO
             else:
                 self.s.write(b'\x02\x45\x31\x30\x00\x00\x03\x41\x39')
         self.ret = str(self.s.read(6), 'UTF-8')
@@ -155,6 +155,64 @@ class Deck:
             self.s.write(b'\x02\x46\x30\x00\x00\x00\x03\x37\x39')
         elif mecha == 'B':
             self.s.write(b'\x02\x46\x31\x00\x00\x00\x03\x37\x41')
+        self.ret = str(self.s.read(6), 'UTF-8')
+    def memory(self, mecha):
+        self.s.flushInput()
+        if mecha == 'A':
+            self.s.write(b'\x02\x47\x30\x31\x00\x00\x03\x41\x42')
+        elif mecha == 'B':
+            self.s.write(b'\x02\x47\x31\x31\x00\x00\x03\x41\x43')
+        self.ret = str(self.s.read(6), 'UTF-8')
+    def c_reset(self, mecha):
+        self.s.flushInput()
+        if mecha == 'A':
+            self.s.write(b'\x02\x48\x30\x00\x00\x00\x03\x37\x42')
+        elif mecha == 'B':
+            self.s.write(b'\x02\x48\x31\x00\x00\x00\x03\x37\x43')
+        self.ret = str(self.s.read(6), 'UTF-8')
+    def dolby(self, mecha, dolby):
+        self.s.flushInput()
+        if mecha == 'A':
+            if dolby == 0:
+                self.s.write(b'\x02\x49\x30\x30\x00\x00\x03\x41\x43')
+            elif dolby == 1:
+                self.s.write(b'\x02\x49\x30\x31\x00\x00\x03\x41\x44')
+            elif dolby == 2:
+                self.s.write(b'\x02\x49\x30\x32\x00\x00\x03\x41\x45')
+        elif mecha == 'B':
+            if dolby == 0:
+                self.s.write(b'\x02\x49\x31\x30\x00\x00\x03\x41\x44')
+            elif dolby == 1:
+                self.s.write(b'\x02\x49\x31\x31\x00\x00\x03\x41\x45')
+            elif dolby == 2:
+                self.s.write(b'\x02\x49\x31\x32\x00\x00\x03\x41\x46')
+        self.ret = str(self.s.read(6), 'UTF-8')
+    def twinrec(self):
+        self.s.flushInput()
+        self.s.write(b'\x02\x4A\x00\x00\x00\x00\x03\x34\x44')
+        self.ret = str(self.s.read(6), 'UTF-8')
+    def dubbing(self, hispeed):
+        if hispeed == False:
+            self.s.write(b'\x02\x4B\x30\x00\x00\x00\x03\x37\x45')
+        elif hispeed == True:
+            self.s.write(b'\x02\x4B\x31\x00\x00\x00\x03\x37\x46')
+        self.ret = str(self.s.read(6), 'UTF-8')
+    def speed(self, hispeed):
+        if hispeed == False:
+            self.s.write(b'\x02\x4C\x30\x00\x00\x00\x03\x37\x46')
+        elif hispeed == True:
+            self.s.write(b'\x02\x4C\x31\x00\x00\x00\x03\x38\x30')
+        self.ret = str(self.s.read(6), 'UTF-8')
+    def revmode(self, mode):
+        self.s.flushInput()
+        if mode == 0:
+            self.s.write(b'\x02\x4D\x30\x00\x00\x00\x03\x38\x30')
+        elif mode == 1:
+            self.s.write(b'\x02\x4D\x31\x00\x00\x00\x03\x38\x31')
+        elif mode == 2:
+            self.s.write(b'\x02\x4D\x32\x00\x00\x00\x03\x38\x32')
+        elif mode == 3:
+            self.s.write(b'\x02\x4D\x33\x00\x00\x00\x03\x38\x33')
         self.ret = str(self.s.read(6), 'UTF-8')
     def close(self):
         self.s.close()
