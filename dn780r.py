@@ -5,6 +5,8 @@ class Deck:
     def __init__(self, port):
         self.port = port
         self.s = serial.Serial(str(self.port), 9600, parity=serial.PARITY_EVEN, timeout=1)
+        self.status()
+        return 0
     def reset(self):
         self.s.flushInput()
         self.s.write(b'\x02\x20\x00\x00\x00\x00\x03\x32\x33')
