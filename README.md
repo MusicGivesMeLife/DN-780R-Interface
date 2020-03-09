@@ -4,7 +4,7 @@
 
 ## Functions
 ### `__init__`
-Accepts a serial port as a string and opens the connection with a baud of 9600, even parity, and runs `status()`.
+Accepts a serial port as a string and opens the connection with a baud of 9600, even parity, and runs `status` and `tape_stat`.
 
 ### `reset`
 Performs a soft reset on the recorder.
@@ -21,7 +21,13 @@ Gets current system status from recorder.
 Returns CPU version in the format of a 4-digit string.
 
 ### `tape_stat`
-TODO
+Gets current recordability of tapes in both mechas.
+* `a_loaded` Same as above
+* `b_loaded` Same as above
+* `reca_a` True is mecha A side A is recordable
+* `reca_b` True is mecha A side B is recordable
+* `recb_a` True is mecha B side A is recordable
+* `recb_a` True is mecha B side B is recordable
 
 ### `established`
 Return hardware settings.

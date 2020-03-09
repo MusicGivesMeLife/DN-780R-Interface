@@ -6,6 +6,7 @@ class Deck:
         self.port = port
         self.s = serial.Serial(str(self.port), 9600, parity=serial.PARITY_EVEN, timeout=1)
         self.status()
+        self.tape_stat()
         return 0
     def reset(self):
         self.s.flushInput()
@@ -45,7 +46,48 @@ class Deck:
     def tape_stat(self):
         self.s.flushInput()
         self.s.write(b'\x02\x32\x00\x00\x00\x00\x03\x33\x35')
-        self.ret = list(str(self.s.readline(), 'UTF-8'))
+        self.ret = list(str(self.s.read(8), 'UTF-8'))
+        if self.ret[4] == '0':
+            self.a_loaded = False
+            self.recb_a == False
+            self.recb_b == False
+        elif self.ret[4] == '1':
+            self.a_loaded = True
+            self.reca_a == True
+            self.reca_b == True
+        elif self.ret[4] == '2':
+            self.a_loaded = True
+            self.reca_a == False
+            self.reca_b == True
+        elif self.ret[4] == '3':
+            self.a_loaded = True
+            self.reca_a == True
+            self.reca_b == False
+        elif self.ret[4] == '1':
+            self.b_loaded = True
+            self.recb_a == False
+            self.recb_b == False
+        if self.ret[5] == '0':
+            self.b_loaded = False
+            self.recb_a == False
+            self.recb_b == False
+        elif self.ret[5] == '1':
+            self.b_loaded = True
+            self.recb_a == True
+            self.recb_b == True
+        elif self.ret[5] == '2':
+            self.b_loaded = True
+            self.recb_a == False
+            self.recb_b == True
+        elif self.ret[5] == '3':
+            self.b_loaded = True
+            self.recb_a == True
+            self.recb_b == False
+        elif self.ret[5] == '1':
+            self.b_loaded = True
+            self.recb_a == False
+            self.recb_b == False
+        return 0
     def established(self):
         self.s.flushInput()
         self.s.write(b'\x02\x33\x00\x00\x00\x00\x03\x33\x36')
