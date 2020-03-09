@@ -37,12 +37,12 @@ Returns CPU version in the format of a 4-digit string.
 
 ### `tape_stat`
 Gets current recordability of tapes in both mechas.
-* `a_loaded` Same as above
-* `b_loaded` Same as above
-* `reca_a` Boolean. True is mecha A side A is recordable
-* `reca_b` Boolean. True is mecha A side B is recordable
-* `recb_a` Boolean. True is mecha B side A is recordable
-* `recb_a` Boolean. True is mecha B side B is recordable
+* `a_stat` Same as above
+* `b_stat` Same as above
+* `reca_a` Boolean. True if mecha A side A is recordable
+* `reca_b` Boolean. True if mecha A side B is recordable
+* `recb_a` Boolean. True if mecha B side A is recordable
+* `recb_a` Boolean. True if mecha B side B is recordable
 
 ### `established`
 Return hardware settings.
@@ -54,6 +54,7 @@ Return hardware settings.
 * `dolbyb` Integer. Mecha A Dolby Noise Reduction. 0 if off, 1 if type B, 2 if type C
 * `dirb` Boolean. Mecha A play/rec direction. True if forward (right), False if reverse (left)
 * `memb` Boolean. Mecha A memory. True if on, False if off
+
 *Note, direction might be different from panel switch if changed via command*
 
 ### `id`
