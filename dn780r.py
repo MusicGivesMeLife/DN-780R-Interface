@@ -21,7 +21,7 @@ class Deck:
         self.s.flushInput()
         self.s.write(b'\x02\x30\x00\x00\x00\x00\x03\x33\x33')
         self.ret = list(str(self.s.read(20), 'UTF-8'))
-        self.sys_status = str(self.ret[3])
+        self.sys_status = int(self.ret[3])
         self.a_stat = self.ret[5]
         self.b_stat = self.ret[11]
         if self.ret[4] == '0':
