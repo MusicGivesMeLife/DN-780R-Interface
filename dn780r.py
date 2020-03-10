@@ -10,12 +10,11 @@ class Deck:
         self.status()
         self.tape_stat()
         self.established()
-        return 0
     def reset(self):
         self.s.flushInput()
+        self.s.flushOutput()
         self.s.write(b'\x02\x20\x00\x00\x00\x00\x03\x32\x33')
         time.sleep(2)
-        return 0
     def status(self):
         self.s.flushInput()
         self.s.write(b'\x02\x30\x00\x00\x00\x00\x03\x33\x33')
@@ -33,7 +32,6 @@ class Deck:
         self.counter_b = ((int(self.ret[13])*1000) + (int(self.ret[14])*100) + (int(self.ret[15])*10) + int(self.ret[16]))
         if self.ret[12] == '-':
             self.counter_b = self.counter_b*-1
-        return 0
     def cpu_vers(self):
         self.s.flushInput()
         self.s.write(b'\x02\x31\x00\x00\x00\x00\x03\x33\x34')
@@ -76,7 +74,6 @@ class Deck:
         elif self.ret[5] == '4':
             self.recb_a = False
             self.recb_b = False
-        return 0
     def established(self):
         self.s.flushInput()
         self.s.write(b'\x02\x33\x00\x00\x00\x00\x03\x33\x36')
@@ -136,6 +133,18 @@ class Deck:
             else:
                 self.s.write(b'\x02\x44\x31\x30\x00\x00\x03\x41\x38')
         self.ret = str(self.s.read(6), 'UTF-8')
+    def full_forward(self, mecha):
+        forward(mecha, False)
+        i = ''
+        while i != 'G':
+            time.sleep(0.5)
+            self.tape_stat()
+            if mecha == 'A':
+                i = a_stat
+            elif mecha == 'B':
+                i = b_stat
+        self.stop(mecha)
+        self.all_stat()
     def rewind(self, mecha, msearch):
         self.s.flushInput()
         if mecha == 'A':
@@ -149,6 +158,19 @@ class Deck:
             else:
                 self.s.write(b'\x02\x45\x31\x30\x00\x00\x03\x41\x39')
         self.ret = str(self.s.read(6), 'UTF-8')
+    def full_rewind(self, mecha):
+        rewind(mecha, False)
+        i = ''
+        while i != 'H':
+            time.sleep(0.5)
+            self.tape_stat()
+            if mecha == 'A':
+                i = a_stat
+            elif mecha == 'B':
+                i = b_stat
+        self.stop(mecha)
+        self.c_reset(mecha)
+        self.all_stat()
     def direction(self, mecha):
         self.s.flushInput()
         if mecha == 'A':

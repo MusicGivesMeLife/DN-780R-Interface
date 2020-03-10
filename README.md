@@ -77,8 +77,14 @@ Accepts a string indicating which mecha, 'A' or 'B', and sets that mecha to paus
 ### `forward`
 Accepts a string indicating which mecha, 'A' or 'B', and a boolean indicating if music search is to be used and sets the mecha to fast-forward.
 
+### `full_forward`
+Accepts a string indicating which mecha, 'A' or 'B', and fully fast-forwards that mecha to the end.  Does *not* reset the counters.
+
 ### `rewind`
 Accepts a string indicating which mecha, 'A' or 'B', and a boolean indicating if music search is to be used and sets the mecha to rewind.
+
+### `full_rewind`
+Accepts a string indicating which mecha, 'A' or 'B', and fully rewinds that mecha back to start and resets the counters.
 
 ### `direction`
 Accepts a string indicating which mecha, 'A' or 'B', and toggles the direction of that mecha.
