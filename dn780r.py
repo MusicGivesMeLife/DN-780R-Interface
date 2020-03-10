@@ -115,6 +115,23 @@ class Deck:
         elif mecha == 'B':
             self.s.write(b'\x02\x42\x31\x00\x00\x00\x03\x37\x36')
         self.ret = str(self.s.read(6), 'UTF-8')
+    def start_rec(self, mecha):
+        self.tape_stat()
+        if mecha == 'A':
+            if reca_a && reca_b:
+                self.stop('A')
+                self.rec('A')
+                self.play('A')
+            else:
+                return 1
+        elif mecha == 'B':
+            if recb_a && recb_b:
+                self.stop('B')
+                self.rec('B')
+                self.play('B')
+            else:
+                return 1
+        return 0
     def pause_rec(self, mecha):
         self.s.flushInput()
         if mecha == 'A':

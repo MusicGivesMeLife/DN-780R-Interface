@@ -74,6 +74,9 @@ Accepts a string indicating which mecha, 'A' or 'B', and sets that mecha to reco
 ### `pause_rec`
 Accepts a string indicating which mecha, 'A' or 'B', and sets that mecha to paused record.
 
+### `start_rec`
+Accepts a string indicating which mecha, 'A' or 'B', and starts recording on that mecha.
+
 ### `forward`
 Accepts a string indicating which mecha, 'A' or 'B', and a boolean indicating if music search is to be used and sets the mecha to fast-forward.
 
