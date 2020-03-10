@@ -13,6 +13,8 @@ class Deck:
     def reset(self):
         self.s.flushInput()
         self.s.flushOutput()
+        self.stop('A')
+        self.stop('B')
         self.s.write(b'\x02\x20\x00\x00\x00\x00\x03\x32\x33')
         time.sleep(2)
     def status(self):
