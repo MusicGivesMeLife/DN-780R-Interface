@@ -44,36 +44,36 @@ class Deck:
         self.s.flushInput()
         self.s.write(b'\x02\x32\x00\x00\x00\x00\x03\x33\x35')
         self.ret = list(str(self.s.read(8), 'UTF-8'))
-        if self.ret[4] == '0':
+        if self.ret[3] == '0':
             self.a_stat = 'A'
-            self.recb_a = False
-            self.recb_b = False
-        elif self.ret[4] == '1':
+            self.reca_a = False
+            self.reca_b = False
+        elif self.ret[3] == '1':
             self.reca_a = True
             self.reca_b = True
-        elif self.ret[4] == '2':
+        elif self.ret[3] == '2':
             self.reca_a = False
             self.reca_b = True
-        elif self.ret[4] == '3':
+        elif self.ret[3] == '3':
             self.reca_a = True
             self.reca_b = False
-        elif self.ret[4] == '4':
-            self.recb_a = False
-            self.recb_b = False
-        if self.ret[5] == '0':
+        elif self.ret[3] == '4':
+            self.reca_a = False
+            self.reca_b = False
+        if self.ret[4] == '0':
             self.b_stat = 'A'
             self.recb_a = False
             self.recb_b = False
-        elif self.ret[5] == '1':
+        elif self.ret[4] == '1':
             self.recb_a = True
             self.recb_b = True
-        elif self.ret[5] == '2':
+        elif self.ret[4] == '2':
             self.recb_a = False
             self.recb_b = True
-        elif self.ret[5] == '3':
+        elif self.ret[4] == '3':
             self.recb_a = True
             self.recb_b = False
-        elif self.ret[5] == '4':
+        elif self.ret[4] == '4':
             self.recb_a = False
             self.recb_b = False
     def established(self):
@@ -118,14 +118,14 @@ class Deck:
     def start_rec(self, mecha):
         self.tape_stat()
         if mecha == 'A':
-            if reca_a && reca_b:
+            if self.reca_a and self.reca_b:
                 self.stop('A')
                 self.rec('A')
                 self.play('A')
             else:
                 return 1
         elif mecha == 'B':
-            if recb_a && recb_b:
+            if self.recb_a and self.recb_b:
                 self.stop('B')
                 self.rec('B')
                 self.play('B')
@@ -153,15 +153,16 @@ class Deck:
                 self.s.write(b'\x02\x44\x31\x30\x00\x00\x03\x41\x38')
         self.ret = str(self.s.read(6), 'UTF-8')
     def full_forward(self, mecha):
-        forward(mecha, False)
-        i = ''
-        while i != 'G':
+        self.forward(mecha, False)
+        time.sleep(1)
+        i = 'G'
+        while i == 'G':
             time.sleep(0.5)
-            self.tape_stat()
+            self.status()
             if mecha == 'A':
-                i = a_stat
+                i = self.a_stat
             elif mecha == 'B':
-                i = b_stat
+                i = self.b_stat
         self.stop(mecha)
         self.all_stat()
     def rewind(self, mecha, msearch):
@@ -178,16 +179,18 @@ class Deck:
                 self.s.write(b'\x02\x45\x31\x30\x00\x00\x03\x41\x39')
         self.ret = str(self.s.read(6), 'UTF-8')
     def full_rewind(self, mecha):
-        rewind(mecha, False)
-        i = ''
-        while i != 'H':
+        self.rewind(mecha, False)
+        time.sleep(1)
+        i = 'H'
+        while i == 'H':
             time.sleep(0.5)
-            self.tape_stat()
+            self.status()
             if mecha == 'A':
-                i = a_stat
+                i = self.a_stat
             elif mecha == 'B':
-                i = b_stat
+                i = self.b_stat
         self.stop(mecha)
+        time.sleep(1)
         self.c_reset(mecha)
         self.all_stat()
     def direction(self, mecha):
