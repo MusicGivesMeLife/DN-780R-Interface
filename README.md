@@ -31,6 +31,9 @@ Gets current system status from recorder.
 * `counter_a` Integer. Current counter value for mecha A
 * `counter_b` Integer. Current counter value for mecha B
 * `sys_status` Integer.
+  * '1' Normal
+  * '2' Twin Recording
+  * '3' Dubbing
 
 ### `cpu_vers`
 Returns CPU version in the format of a 4-digit string.
